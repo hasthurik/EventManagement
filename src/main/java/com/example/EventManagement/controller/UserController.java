@@ -1,6 +1,7 @@
 package com.example.EventManagement.controller;
 
 
+import com.example.EventManagement.DTO.UserDTO;
 import com.example.EventManagement.entity.UserEntity;
 import com.example.EventManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,16 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> GetUserById(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    public ResponseEntity<UserDTO> GetUserById(@PathVariable Long id) {
+        UserDTO user = userService.getUserById(id);
+        if (user != null) {
+            return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
+
+    //получение списка всех пользователей
     @GetMapping("/all")
     public ResponseEntity<List<UserEntity>>  getAllUsers() {
          return new ResponseEntity<>(userService.getAllUs(), HttpStatus.OK);
@@ -42,7 +49,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<UserEntity> DeleteUser(@PathVariable Long id) {
-        UserEntity user = userService.getUserById(id);
+        UserDTO user = userService.getUserById(id);
         if (user != null) {
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.OK);
