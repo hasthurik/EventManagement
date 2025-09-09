@@ -31,9 +31,9 @@ public class UserEntity {
 
     private String password;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private RoleEntity role;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "role_id")
+//    private RoleEntity role;
 
 }

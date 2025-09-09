@@ -33,7 +33,6 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-
     //получение списка всех пользователей
     @GetMapping("/all")
     public ResponseEntity<List<UserEntity>>  getAllUsers() {
@@ -43,10 +42,13 @@ public class UserController {
     //Создание нового пользователя
     @PostMapping("/create")
     public ResponseEntity<UserEntity> CreateUser(@RequestBody UserEntity user) {
-        userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        UserDTO userDto = userService.addUser(user);
+        if (userDto != null) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
+    //удаление пользователя
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<UserEntity> DeleteUser(@PathVariable Long id) {
         UserDTO user = userService.getUserById(id);

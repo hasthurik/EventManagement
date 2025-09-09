@@ -27,7 +27,12 @@ public class EventService {
         }
     }
 
+    //получение плоьзователя по id
     public EventEntity getEventById(Long id) {
         return eventRepo.findById(id).orElse(null);
+    }
+
+    public void deleteUserById(Long id) {
+        eventRepo.deleteById(id);
     }
 }

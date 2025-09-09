@@ -27,7 +27,7 @@ public class RoleEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private List<UserEntity> users;
+//    @OneToMany(mappedBy = "role")
+//    private List<UserEntity> users;
 
 }
