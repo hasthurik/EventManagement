@@ -13,7 +13,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @AllArgsConstructor

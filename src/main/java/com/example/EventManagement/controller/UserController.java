@@ -1,7 +1,8 @@
 package com.example.EventManagement.controller;
 
 
-import com.example.EventManagement.DTO.UserDTO;
+import com.example.EventManagement.DTO.request.UserRequest;
+import com.example.EventManagement.DTO.response.UserResponse;
 import com.example.EventManagement.entity.UserEntity;
 import com.example.EventManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> GetUserById(@PathVariable Long id) {
-        UserDTO user = userService.getUserById(id);
+    public ResponseEntity<UserResponse> GetUserById(@PathVariable Long id) {
+        UserResponse user = userService.getUserById(id);
         if (user != null) {
             return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
         }
@@ -41,9 +42,9 @@ public class UserController {
     }
     //Создание нового пользователя
     @PostMapping("/create")
-    public ResponseEntity<UserEntity> CreateUser(@RequestBody UserEntity user) {
-        UserDTO userDto = userService.addUser(user);
-        if (userDto != null) {
+    public ResponseEntity<UserRequest> CreateUser(@RequestBody UserRequest user) {
+        UserResponse userResponse = userService.createUser(user);
+        if (user != null) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -51,7 +52,7 @@ public class UserController {
     //удаление пользователя
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<UserEntity> DeleteUser(@PathVariable Long id) {
-        UserDTO user = userService.getUserById(id);
+        UserResponse user = userService.getUserById(id);
         if (user != null) {
             userService.deleteUserById(id);
             return new ResponseEntity<>(HttpStatus.OK);
