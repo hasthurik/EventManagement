@@ -36,7 +36,6 @@ public class UserService {
         } else {return null;}
     }
 
-
     public void deleteUserById(Long id) {
         repo.deleteById(id);
     }
